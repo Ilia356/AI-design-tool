@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>AI设计工具</title>
+<style>
+body{
+    font-family: Arial;
+    background:#0f0f0f;
+    color:white;
+    display:flex;
+    justify-content:center;
+    padding-top:80px;
+}
+
+.container{
+    width:500px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:none;
+    margin-bottom:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#4f46e5;
+    color:white;
+    cursor:pointer;
+}
+
+.card{
+    margin-top:20px;
+    padding:15px;
+    background:#1f1f1f;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>AI设计工具</h2>
+
+<input id="input" placeholder="输入设计主题，比如：咖啡品牌">
+
+<button onclick="generate()">生成设计方案</button>
+
+<div class="card" id="output">等待生成...</div>
+
+</div>
+
+<script>
+function generate(){
+    let text = document.getElementById("input").value;
+
+    document.getElementById("output").innerHTML = `
+        <h3>设计主题：${text}</h3>
+        <p>风格：极简 / 现代 / 科技感</p>
+        <p>配色：黑 + 紫 / 深灰 + 蓝</p>
+        <p>版式：居中结构 + 卡片式布局</p>
+        <p>AI提示词：A modern minimalist design for ${text}, high quality UI, clean layout</p>
+    `;
+}
+</script>
+
+</body>
+</html>
