@@ -79,21 +79,32 @@ async function generate(){
     document.querySelector("#output").innerHTML = "AI正在生成...";
 
     let res = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization":"Bearer 54fb500580a74e7988cd4ef9b996b3e2.kPrtN3z5epkA03TB"
-        },
-        body: JSON.stringify({
-            model: "glm-4",
-            messages: [
-                {
-                    role: "user",
-                    content: "你是一个设计师，请为这个品牌生成设计方案：" + input
-                }
-            ]
-        })
-    });
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 你的API_KEY"
+    },
+    body: JSON.stringify({
+        model: "glm-5.2",
+        messages: [
+            {
+                role: "user",
+                content: "你是一个设计师，请为这个品牌生成设计方案：" + input
+            }
+        ]
+    })
+});
+
+let data = await res.json();
+
+if (!res.ok) {
+    document.querySelector("#output").innerHTML =
+        "请求失败：" + (data.error?.message || res.status);
+    return;
+}
+
+document.querySelector("#output").innerText =
+    data.choices[0].message.content;
 
     let data = await res.json();
 
