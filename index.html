@@ -64,13 +64,42 @@ function generate(){
 
     document.getElementById("output").innerHTML = `
         <h3>设计主题：${text}</h3>
-        <p>风格：极简 / 现代 / 科技感</p>
+        <p>风格：极简 / 现代 / 科技感</p>Z
         <p>配色：黑 + 紫 / 深灰 + 蓝</p>
         <p>版式：居中结构 + 卡片式布局</p>
         <p>AI提示词：A modern minimalist design for ${text}, high quality UI, clean layout</p>
     `;
 }
 </script>
+<script>
+async function generate(){
 
+    let input = document.querySelector("input").value;
+
+    document.querySelector("#output").innerHTML = "AI正在生成...";
+
+    let res = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization":"Bearer 54fb500580a74e7988cd4ef9b996b3e2.kPrtN3z5epkA03TB"
+        },
+        body: JSON.stringify({
+            model: "glm-4",
+            messages: [
+                {
+                    role: "user",
+                    content: "你是一个设计师，请为这个品牌生成设计方案：" + input
+                }
+            ]
+        })
+    });
+
+    let data = await res.json();
+
+    document.querySelector("#output").innerText =
+        data.choices[0].message.content;
+}
+</script>
 </body>
 </html>
